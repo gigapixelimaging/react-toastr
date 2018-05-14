@@ -157,7 +157,13 @@ export class ToastContainer extends React.PureComponent<Props> {
         }
         this.handleOnToastClick(event)
       },
-      onRemove: _.bind(this.handleOnToastRemove, this, key),
+      
+      onRemove: event => {
+        if (_.isFunction(optionsOverride.handleOnRemove)) {
+          optionsOverride.handleOnRemove()
+        }
+        this.handleOnToastRemove(key)
+      }
     }
     this.setState(state => ({
       toastList: this.props.newestOnTop
